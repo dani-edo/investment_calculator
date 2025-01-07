@@ -8,17 +8,9 @@ import (
 
 func main() {
 	const inflationRate = 2.5
-	var investmentAmount, years float64
-	expectedReturnRate := 5.5
-
-	fmt.Print("Investment Amount: ")
-	fmt.Scan(&investmentAmount)
-
-	fmt.Print("Years: ")
-	fmt.Scan(&years)
-
-	fmt.Print("Expected Return Rate: ")
-	fmt.Scan(&expectedReturnRate)
+	investmentAmount := getUserInput("Investment Amount: ")
+	years := getUserInput("Years: ")
+	expectedReturnRate := getUserInput("Expected Return Rate: ")
 
 	futureValue, futureRealValue := calculateFutureValues(investmentAmount, expectedReturnRate, inflationRate, years)
 	message := fmt.Sprintf(`Future Value: %.5f, Future Real Value: %.5f`, futureValue, futureRealValue)
@@ -29,4 +21,10 @@ func calculateFutureValues(investmentAmount, expectedReturnRate, inflationRate, 
 	futureValue = investmentAmount * math.Pow((1+expectedReturnRate/100), years)
 	futureRealValue = futureValue / math.Pow((1+inflationRate/100), years)
 	return futureValue, futureRealValue
+}
+
+func getUserInput(text string) (result float64) {
+	fmt.Print(text)
+	fmt.Scan(&result)
+	return
 }
